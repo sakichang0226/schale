@@ -1,0 +1,21 @@
+project(":product-database") {
+	dependencies {
+		implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+		implementation 'org.mybatis.generator:mybatis-generator-core:1.4.2'
+		implementation "com.mysql:mysql-connector-j:8.2.0"
+		implementation "org.mybatis.dynamic-sql:mybatis-dynamic-sql:1.5.0"
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	}
+
+	bootJar {
+		enabled = false
+	}
+
+	jar {
+		enabled = true
+	}
+
+}
