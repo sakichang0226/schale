@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry location="C:\Users\saki0\git\abydos\schale\product-database\src\main\resources\mybatis\db\mysql-connector-j-8.3.0.jar" />
+    <context id ="tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+        <jdbcConnection
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/mall"
+                userId="test"
+                password="test"
+        />
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+            <property name="useJSR310Types" value="true" />
+        </javaTypeResolver>
+
+        <javaModelGenerator
+                targetPackage="com.project.schale.saki.database.product.model"
+                targetProject="C:\Users\saki0\git\abydos\schale\product-database\src\main\java">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator
+                targetPackage="com.project.schale.saki.database.product.model.mapper"
+                targetProject="C:\Users\saki0\git\abydos\schale\product-database\src\main\java">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator
+                targetPackage="com.project.schale.saki.database.product.mapper"
+                targetProject="C:\Users\saki0\git\abydos\schale\product-database\src\main\java"
+                type="ANNOTATEDMAPPER">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <table schema="mall" tableName="items"
+               domainObjectName="Item"
+               enableInsert="true"
+               enableSelectByPrimaryKey="true"
+               enableSelectByExample="true"
+               enableUpdateByPrimaryKey="true"
+               enableUpdateByExample="true"
+               enableDeleteByPrimaryKey="true"
+               enableDeleteByExample="true"
+               modelType="flat"
+        >
+            <columnOverride column="item_id" javaType="java.lang.Long" />
+            <columnOverride column="name" javaType="java.lang.String" />
+            <columnOverride column="shop_id" javaType="java.lang.Long" />
+            <columnOverride column="category_id" javaType="java.lang.Long" />
+            <columnOverride column="price" javaType="java.lang.Long" />
+            <columnOverride column="purchase_num" javaType="java.lang.Integer" />
+            <columnOverride column="stock" javaType="java.lang.Integer" />
+            <columnOverride column="is_stopped" javaType="java.lang.Boolean" />
+            <columnOverride column="description" javaType="java.lang.String" />
+            <columnOverride column="create_at" javaType="java.time.LocalDateTime" />
+            <columnOverride column="update_at" javaType="java.time.LocalDateTime" />
+        </table>
+        <table schema="mall" tableName="images"
+               domainObjectName="Image"
+               enableInsert="true"
+               enableSelectByPrimaryKey="true"
+               enableSelectByExample="true"
+               enableUpdateByPrimaryKey="true"
+               enableUpdateByExample="true"
+               enableDeleteByPrimaryKey="true"
+               enableDeleteByExample="true"
+               modelType="flat"
+        >
+            <columnOverride column="image_id" javaType="java.lang.Long" />
+            <columnOverride column="item_id" javaType="java.lang.Long" />
+            <columnOverride column="name" javaType="java.lang.String" />
+            <columnOverride column="create_at" javaType="java.time.LocalDateTime" />
+            <columnOverride column="update_at" javaType="java.time.LocalDateTime" />
+        </table>
+        <table schema="mall" tableName="shops"
+               domainObjectName="Shop"
+               enableInsert="true"
+               enableSelectByPrimaryKey="true"
+               enableSelectByExample="true"
+               enableUpdateByPrimaryKey="true"
+               enableUpdateByExample="true"
+               enableDeleteByPrimaryKey="true"
+               enableDeleteByExample="true"
+               modelType="flat"
+        >
+            <columnOverride column="shop_id" javaType="java.lang.Long" />
+            <columnOverride column="name" javaType="java.lang.String" />
+            <columnOverride column="create_at" javaType="java.time.LocalDateTime" />
+            <columnOverride column="update_at" javaType="java.time.LocalDateTime" />
+        </table>
+        <table schema="mall" tableName="categories"
+               domainObjectName="Category"
+               enableInsert="true"
+               enableSelectByPrimaryKey="true"
+               enableSelectByExample="true"
+               enableUpdateByPrimaryKey="true"
+               enableUpdateByExample="true"
+               enableDeleteByPrimaryKey="true"
+               enableDeleteByExample="true"
+               modelType="flat"
+        >
+            <columnOverride column="category_id" javaType="java.lang.Long" />
+            <columnOverride column="parent_category_id" javaType="java.lang.Long" />
+            <columnOverride column="name" javaType="java.lang.String" />
+            <columnOverride column="depth" javaType="java.lang.Integer" />
+            <columnOverride column="create_at" javaType="java.time.LocalDateTime" />
+            <columnOverride column="update_at" javaType="java.time.LocalDateTime" />
+        </table>
+
+    </context>
+</generatorConfiguration>
