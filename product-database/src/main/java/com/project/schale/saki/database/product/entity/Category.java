@@ -1,10 +1,15 @@
 package com.project.schale.saki.database.product.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 /**
  *　カテゴリ情報のエンティティクラス
  */
+@Getter
+@Setter
 public class Category {
 
     /** カテゴリId　*/

@@ -1,10 +1,15 @@
 package com.project.schale.saki.database.product.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 /**
  *　商品画像情報のエンティティクラス
  */
+@Getter
+@Setter
 public class Image {
 
     /** 店舗Id　*/
@@ -15,6 +20,9 @@ public class Image {
 
     /** 商品画像名　*/
     private String name;
+
+    /** 商品画像のURL */
+    private String imageUrl;
 
     /** 作成日　*/
     private LocalDateTime createAt;
