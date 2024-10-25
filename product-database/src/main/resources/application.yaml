@@ -1,6 +1,10 @@
+logging:
+  level:
+    com.zaxxer.hikari: debug
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/demo?useSSL=false
+    url: jdbc:mysql://localhost:3306/mall?useSSL=false&allowPublicKeyRetrieval=true
     username: ${MALL_DATABASE_USERNAME:test}
     password: ${MALL_DATABASE_PASSWORD:test}
     driver-class-name: com.mysql.cj.jdbc.Driver
