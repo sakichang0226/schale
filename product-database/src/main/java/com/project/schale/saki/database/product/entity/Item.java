@@ -34,7 +34,7 @@ public class Item {
     private Integer stock;
 
     /** 販売停止フラグ　*/
-    private Boolean is_stopped;
+    private Boolean isStopped;
 
     /** 商品説明 */
     private String description;
