@@ -29,7 +29,9 @@ public class ImageRepositoryImpl implements ImageRepository {
         ImageExample example = new ImageExample();
         ImageExample.Criteria criteria = example.createCriteria().andItemIdEqualTo(itemId);
 
-        return EntityConverter.convert(mapper.selectByExample(example).stream().findFirst(), Image.class);
+        return EntityConverter.convert(
+                mapper.selectByExample(example).stream().findFirst().orElse(null),
+                Image.class);
     }
 
 }
