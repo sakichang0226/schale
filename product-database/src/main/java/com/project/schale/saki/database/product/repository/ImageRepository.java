@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface ImageRepository {
 
     public Optional<Image> findOneByItemId(Long itemId);
