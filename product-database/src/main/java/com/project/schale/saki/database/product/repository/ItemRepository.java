@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 public interface ItemRepository {
 
     public Optional<Item> findByItemId(Long itemId);
