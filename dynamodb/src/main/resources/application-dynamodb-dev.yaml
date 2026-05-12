@@ -1,0 +1,3 @@
+aws:
+  dynamodb:
+    region: ap-northeast-1
