@@ -19,8 +19,6 @@ public class Order {
     private Long orderId;
     /** 注文日時 UnixTimestamp(ms) */
     private Long createdAt;
-    /** 配送ステータス PR:処理中 / ED:配送済み */
-    private String deliveryStatus;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("user_id")
@@ -32,7 +30,4 @@ public class Order {
 
     @DynamoDbAttribute("created_at")
     public Long getCreatedAt() { return createdAt; }
-
-    @DynamoDbAttribute("delivery_status")
-    public String getDeliveryStatus() { return deliveryStatus; }
 }

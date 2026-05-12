@@ -36,6 +36,8 @@ public class SubOrder {
     private Long orderNum;
     /** 受注日時 UnixTimestamp(ms) (GSI1-SK) */
     private Long createdAt;
+    /** 配送ステータス（PR:処理中 / ED:配送済み） */
+    private String deliveryStatus;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("order_id")
@@ -57,9 +59,15 @@ public class SubOrder {
     @DynamoDbAttribute("product_name")
     public String getProductName() { return productName; }
 
+    @DynamoDbAttribute("price")
+    public Long getPrice() { return price; }
+
     @DynamoDbAttribute("order_num")
     public Long getOrderNum() { return orderNum; }
 
     @DynamoDbAttribute("created_at")
     public Long getCreatedAt() { return createdAt; }
+
+    @DynamoDbAttribute("delivery_status")
+    public String getDeliveryStatus() { return deliveryStatus; }
 }
