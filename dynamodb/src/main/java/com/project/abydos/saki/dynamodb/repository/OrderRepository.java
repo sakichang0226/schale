@@ -2,26 +2,19 @@ package com.project.abydos.saki.dynamodb.repository;
 
 import com.project.abydos.saki.dynamodb.entity.Order;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
-import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
 
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
-public class OrderRepository {
+public class OrderRepository extends AbstractDynamoDbRepository<Order> {
 
-    private final DynamoDbEnhancedClient enhancedClient;
-    private static final String TABLE_NAME = "orders";
-
-    private DynamoDbTable<Order> table() {
-        return enhancedClient.table(TABLE_NAME, TableSchema.fromBean(Order.class));
+    public OrderRepository(DynamoDbEnhancedClient enhancedClient) {
+        super(enhancedClient, Order.class, "orders");
     }
 
     public List<Order> findByUserId(@NonNull Long userId, @NonNull Integer limit, Long lastOrderId) {
