@@ -31,7 +31,8 @@ public class OrderRepository extends AbstractDynamoDbRepository<Order> {
      * @param limit 取得件数
      * @param lastOrderId ページネーション用の最後に取得したOrderId
      * @return ページング付きクエリ結果
-     */    public PagedResult<Order> findByUserId(@NonNull Long userId, @NonNull Integer limit, Long lastOrderId) {
+     */
+    public PagedResult<Order> findByUserId(@NonNull Long userId, @NonNull Integer limit, Long lastOrderId) {
         QueryEnhancedRequest.Builder requestBuilder = QueryEnhancedRequest.builder()
                 .queryConditional(QueryConditional.keyEqualTo(Key.builder().partitionValue(userId).build()))
                 .scanIndexForward(false)
