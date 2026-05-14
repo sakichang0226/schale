@@ -6,6 +6,8 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
+import java.util.Set;
+
 /**
  * 注文テーブル（orders）エンティティ.
  * user_idをPK、order_idをSKとして注文履歴をユーザー単位で管理。
@@ -19,6 +21,8 @@ public class Order {
     private Long orderId;
     /** 注文日時 UnixTimestamp(ms) */
     private Long createdAt;
+    /** 受注明細IDのSet（商品単位の連番） */
+    private Set<Long> subOrderIds;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("user_id")
@@ -30,4 +34,7 @@ public class Order {
 
     @DynamoDbAttribute("created_at")
     public Long getCreatedAt() { return createdAt; }
+
+    @DynamoDbAttribute("sub_order_ids")
+    public Set<Long> getSubOrderIds() { return subOrderIds; }
 }
