@@ -1,6 +1,8 @@
 package com.project.abydos.saki.dynamodb.repository;
 
 import com.project.abydos.saki.dynamodb.entity.Order;
+import com.project.abydos.saki.dynamodb.mapper.OrderTransactionMapper;
+import com.project.abydos.saki.dynamodb.param.OrderTransactionParam;
 import lombok.NonNull;
 import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -8,10 +10,14 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.TransactWriteItem;
+import software.amazon.awssdk.services.dynamodb.model.TransactWriteItemsRequest;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,8 +26,15 @@ import java.util.Map;
 @Repository
 public class OrderRepository extends AbstractDynamoDbRepository<Order> {
 
-    public OrderRepository(DynamoDbEnhancedClient enhancedClient) {
+    private final DynamoDbClient dynamoDbClient;
+    private final OrderTransactionMapper transactionMapper;
+
+    private static final int TRANSACT_WRITE_ITEM_LIMIT = 100;
+
+    public OrderRepository(DynamoDbEnhancedClient enhancedClient, DynamoDbClient dynamoDbClient) {
         super(enhancedClient, Order.class, "orders");
+        this.dynamoDbClient = dynamoDbClient;
+        this.transactionMapper = new OrderTransactionMapper();
     }
 
     /**
@@ -61,5 +74,24 @@ public class OrderRepository extends AbstractDynamoDbRepository<Order> {
         }
 
         return new PagedResult<>(page.items(), lastEvaluatedSortKey);
+    }
+
+    /**
+     * 注文登録トランザクションを実行する.
+     * orders/order_detailsのPutとproductsの在庫減算Updateを1トランザクションで実行する.
+     *
+     * @param param トランザクションパラメータ
+     * @throws IllegalArgumentException トランザクションアイテム数が上限を超える場合
+     */
+    public void saveOrder(@NonNull OrderTransactionParam param) {
+        List<TransactWriteItem> transactItems = transactionMapper.toTransactWriteItems(param);
+
+        if (transactItems.size() > TRANSACT_WRITE_ITEM_LIMIT) {
+            throw new IllegalArgumentException("Transaction item count exceeds limit: " + transactItems.size());
+        }
+
+        dynamoDbClient.transactWriteItems(TransactWriteItemsRequest.builder()
+                .transactItems(transactItems)
+                .build());
     }
 }
