@@ -44,7 +44,7 @@ class SequenceRepositoryTest {
                 .build();
         when(dynamoDbClient.updateItem(any(UpdateItemRequest.class))).thenReturn(response);
 
-        Long result = sequenceRepository.getNextValue("sub_order_id", 5L);
+        Long result = sequenceRepository.getNextValue("detail_id", 5L);
 
         assertThat(result).isEqualTo(10L);
     }

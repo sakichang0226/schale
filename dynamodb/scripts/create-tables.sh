@@ -63,19 +63,19 @@ aws dynamodb create-table \
   --billing-mode PAY_PER_REQUEST \
   2>/dev/null || echo "orders table already exists."
 
-echo "Creating sub_orders table..."
+echo "Creating order_details table..."
 aws dynamodb create-table \
   --endpoint-url $ENDPOINT \
   --region $REGION \
-  --table-name sub_orders \
+  --table-name order_details \
   --attribute-definitions \
     AttributeName=order_id,AttributeType=N \
-    AttributeName=sub_order_id,AttributeType=N \
+    AttributeName=detail_id,AttributeType=N \
     AttributeName=shop_id,AttributeType=N \
     AttributeName=created_at,AttributeType=N \
   --key-schema \
     AttributeName=order_id,KeyType=HASH \
-    AttributeName=sub_order_id,KeyType=RANGE \
+    AttributeName=detail_id,KeyType=RANGE \
   --global-secondary-indexes \
     '[{
       "IndexName": "shop-id-index",
@@ -83,7 +83,7 @@ aws dynamodb create-table \
       "Projection": {"ProjectionType": "ALL"}
     }]' \
   --billing-mode PAY_PER_REQUEST \
-  2>/dev/null || echo "sub_orders table already exists."
+  2>/dev/null || echo "order_details table already exists."
 
 echo "Creating sequences table..."
 aws dynamodb create-table \

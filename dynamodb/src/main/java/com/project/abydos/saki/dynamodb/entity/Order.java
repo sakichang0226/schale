@@ -22,7 +22,7 @@ public class Order {
     /** 注文日時 UnixTimestamp(ms) */
     private Long createdAt;
     /** 受注明細IDのSet（商品単位の連番） */
-    private Set<Long> subOrderIds;
+    private Set<Long> detailIds;
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("user_id")
@@ -35,6 +35,6 @@ public class Order {
     @DynamoDbAttribute("created_at")
     public Long getCreatedAt() { return createdAt; }
 
-    @DynamoDbAttribute("sub_order_ids")
-    public Set<Long> getSubOrderIds() { return subOrderIds; }
+    @DynamoDbAttribute("detail_ids")
+    public Set<Long> getDetailIds() { return detailIds; }
 }

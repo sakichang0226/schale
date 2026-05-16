@@ -12,7 +12,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 @Data
 @DynamoDbBean
 public class Sequence {
-    /** 採番対象の識別名（例: "order_id", "sub_order_id"） (PK) */
+    /** 採番対象の識別名（例: "order_id", "detail_id"） (PK) */
     private String sequenceName;
     /** 現在の採番値 */
     private Long currentValue;
