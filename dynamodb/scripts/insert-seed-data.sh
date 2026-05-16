@@ -80,7 +80,7 @@ aws dynamodb put-item \
     "user_id": {"N": "1"},
     "order_id": {"N": "1001"},
     "created_at": {"N": "1700000100000"},
-    "sub_order_ids": {"NS": ["1", "2", "3"]}
+    "detail_ids": {"NS": ["1", "2", "3"]}
   }'
 
 aws dynamodb put-item \
@@ -91,7 +91,7 @@ aws dynamodb put-item \
     "user_id": {"N": "1"},
     "order_id": {"N": "1002"},
     "created_at": {"N": "1700000200000"},
-    "sub_order_ids": {"NS": ["4"]}
+    "detail_ids": {"NS": ["4"]}
   }'
 
 aws dynamodb put-item \
@@ -102,17 +102,17 @@ aws dynamodb put-item \
     "user_id": {"N": "2"},
     "order_id": {"N": "1003"},
     "created_at": {"N": "1700000300000"},
-    "sub_order_ids": {"NS": ["5", "6"]}
+    "detail_ids": {"NS": ["5", "6"]}
   }'
 
-echo "Inserting seed data into sub_orders table..."
+echo "Inserting seed data into order_details table..."
 aws dynamodb put-item \
   --endpoint-url $ENDPOINT \
   --region $REGION \
-  --table-name sub_orders \
+  --table-name order_details \
   --item '{
     "order_id": {"N": "1001"},
-    "sub_order_id": {"N": "1"},
+    "detail_id": {"N": "1"},
     "user_id": {"N": "1"},
     "shop_id": {"N": "10001"},
     "product_id": {"N": "1"},
@@ -126,10 +126,10 @@ aws dynamodb put-item \
 aws dynamodb put-item \
   --endpoint-url $ENDPOINT \
   --region $REGION \
-  --table-name sub_orders \
+  --table-name order_details \
   --item '{
     "order_id": {"N": "1001"},
-    "sub_order_id": {"N": "2"},
+    "detail_id": {"N": "2"},
     "user_id": {"N": "1"},
     "shop_id": {"N": "10001"},
     "product_id": {"N": "2"},
@@ -143,10 +143,10 @@ aws dynamodb put-item \
 aws dynamodb put-item \
   --endpoint-url $ENDPOINT \
   --region $REGION \
-  --table-name sub_orders \
+  --table-name order_details \
   --item '{
     "order_id": {"N": "1001"},
-    "sub_order_id": {"N": "3"},
+    "detail_id": {"N": "3"},
     "user_id": {"N": "1"},
     "shop_id": {"N": "10002"},
     "product_id": {"N": "3"},
@@ -160,10 +160,10 @@ aws dynamodb put-item \
 aws dynamodb put-item \
   --endpoint-url $ENDPOINT \
   --region $REGION \
-  --table-name sub_orders \
+  --table-name order_details \
   --item '{
     "order_id": {"N": "1002"},
-    "sub_order_id": {"N": "4"},
+    "detail_id": {"N": "4"},
     "user_id": {"N": "1"},
     "shop_id": {"N": "10001"},
     "product_id": {"N": "1"},
@@ -177,10 +177,10 @@ aws dynamodb put-item \
 aws dynamodb put-item \
   --endpoint-url $ENDPOINT \
   --region $REGION \
-  --table-name sub_orders \
+  --table-name order_details \
   --item '{
     "order_id": {"N": "1003"},
-    "sub_order_id": {"N": "5"},
+    "detail_id": {"N": "5"},
     "user_id": {"N": "2"},
     "shop_id": {"N": "10001"},
     "product_id": {"N": "1"},
@@ -194,10 +194,10 @@ aws dynamodb put-item \
 aws dynamodb put-item \
   --endpoint-url $ENDPOINT \
   --region $REGION \
-  --table-name sub_orders \
+  --table-name order_details \
   --item '{
     "order_id": {"N": "1003"},
-    "sub_order_id": {"N": "6"},
+    "detail_id": {"N": "6"},
     "user_id": {"N": "2"},
     "shop_id": {"N": "10002"},
     "product_id": {"N": "2"},
@@ -223,7 +223,7 @@ aws dynamodb put-item \
   --region $REGION \
   --table-name sequences \
   --item '{
-    "sequence_name": {"S": "sub_order_id"},
+    "sequence_name": {"S": "detail_id"},
     "current_value": {"N": "6"}
   }'
 

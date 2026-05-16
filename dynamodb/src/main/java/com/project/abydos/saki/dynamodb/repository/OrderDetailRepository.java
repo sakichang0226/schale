@@ -1,6 +1,6 @@
 package com.project.abydos.saki.dynamodb.repository;
 
-import com.project.abydos.saki.dynamodb.entity.SubOrder;
+import com.project.abydos.saki.dynamodb.entity.OrderDetail;
 import lombok.NonNull;
 import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -15,34 +15,34 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 受注明細テーブル（sub_orders）リポジトリ.
+ * 受注明細テーブル（order_details）リポジトリ.
  */
 @Repository
-public class SubOrderRepository extends AbstractDynamoDbRepository<SubOrder> {
+public class OrderDetailRepository extends AbstractDynamoDbRepository<OrderDetail> {
 
     private static final int BATCH_GET_ITEM_LIMIT = 100;
 
-    public SubOrderRepository(DynamoDbEnhancedClient enhancedClient) {
-        super(enhancedClient, SubOrder.class, "sub_orders");
+    public OrderDetailRepository(DynamoDbEnhancedClient enhancedClient) {
+        super(enhancedClient, OrderDetail.class, "order_details");
     }
 
     /**
-     * order_idとsub_order_idsのマップからBatchGetItemで一括取得する.
+     * order_idとdetail_idsのマップからBatchGetItemで一括取得する.
      * 100件を超える場合は分割して実行する。
      */
-    public List<SubOrder> batchGetByOrderSubOrderIds(@NonNull Map<Long, Set<Long>> orderSubOrderIdsMap) {
+    public List<OrderDetail> batchGetByOrderDetailIds(@NonNull Map<Long, Set<Long>> orderDetailIdsMap) {
         List<Key> keys = new ArrayList<>();
-        orderSubOrderIdsMap.forEach((orderId, subOrderIds) ->
-                subOrderIds.forEach(subOrderId ->
-                        keys.add(Key.builder().partitionValue(orderId).sortValue(subOrderId).build())
+        orderDetailIdsMap.forEach((orderId, detailIds) ->
+                detailIds.forEach(detailId ->
+                        keys.add(Key.builder().partitionValue(orderId).sortValue(detailId).build())
                 )
         );
 
-        List<SubOrder> results = new ArrayList<>();
+        List<OrderDetail> results = new ArrayList<>();
         for (int i = 0; i < keys.size(); i += BATCH_GET_ITEM_LIMIT) {
             List<Key> chunk = keys.subList(i, Math.min(i + BATCH_GET_ITEM_LIMIT, keys.size()));
 
-            ReadBatch.Builder<SubOrder> batchBuilder = ReadBatch.builder(SubOrder.class)
+            ReadBatch.Builder<OrderDetail> batchBuilder = ReadBatch.builder(OrderDetail.class)
                     .mappedTableResource(table());
             chunk.forEach(batchBuilder::addGetItem);
 

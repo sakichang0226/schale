@@ -7,8 +7,8 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
 /**
- * 受注明細テーブル（sub_orders）エンティティ.
- * 注文に紐づく商品明細を店舗単位の受注として管理。1注文に対して複数の明細を保持する。
+ * 受注明細テーブル（order_details）エンティティ.
+ * 注文に紐づく商品明細を商品単位で管理。1注文に対して複数の明細を保持する。
  *
  * <p>GSI:
  * <ul>
@@ -17,11 +17,11 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortK
  */
 @Data
 @DynamoDbBean
-public class SubOrder {
+public class OrderDetail {
     /** 注文ID（ordersテーブルのSKと対応） (PK) */
     private Long orderId;
-    /** 受注明細ID (SK) */
-    private Long subOrderId;
+    /** 受注明細ID（商品単位の連番） (SK) */
+    private Long detailId;
     /** ユーザーID */
     private Long userId;
     /** 店舗ID (GSI1-PK) */
@@ -44,8 +44,8 @@ public class SubOrder {
     public Long getOrderId() { return orderId; }
 
     @DynamoDbSortKey
-    @DynamoDbAttribute("sub_order_id")
-    public Long getSubOrderId() { return subOrderId; }
+    @DynamoDbAttribute("detail_id")
+    public Long getDetailId() { return detailId; }
 
     @DynamoDbAttribute("user_id")
     public Long getUserId() { return userId; }
