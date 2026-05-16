@@ -1,6 +1,8 @@
 package com.project.abydos.saki.dynamodb.repository;
 
+import com.project.abydos.saki.dynamodb.constant.DynamoDbErrorMessage;
 import com.project.abydos.saki.dynamodb.entity.Order;
+import com.project.abydos.saki.dynamodb.exception.StockConditionException;
 import com.project.abydos.saki.dynamodb.mapper.OrderTransactionMapper;
 import com.project.abydos.saki.dynamodb.param.OrderTransactionParam;
 import lombok.NonNull;
@@ -14,6 +16,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.TransactWriteItem;
 import software.amazon.awssdk.services.dynamodb.model.TransactWriteItemsRequest;
+import software.amazon.awssdk.services.dynamodb.model.TransactionCanceledException;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -82,6 +85,7 @@ public class OrderRepository extends AbstractDynamoDbRepository<Order> {
      *
      * @param param トランザクションパラメータ
      * @throws IllegalArgumentException トランザクションアイテム数が上限を超える場合
+     * @throws StockConditionException 在庫不足によりトランザクションがキャンセルされた場合
      */
     public void saveOrder(@NonNull OrderTransactionParam param) {
         List<TransactWriteItem> transactItems = transactionMapper.toTransactWriteItems(param);
@@ -90,8 +94,12 @@ public class OrderRepository extends AbstractDynamoDbRepository<Order> {
             throw new IllegalArgumentException("Transaction item count exceeds limit: " + transactItems.size());
         }
 
-        dynamoDbClient.transactWriteItems(TransactWriteItemsRequest.builder()
-                .transactItems(transactItems)
-                .build());
+        try {
+            dynamoDbClient.transactWriteItems(TransactWriteItemsRequest.builder()
+                    .transactItems(transactItems)
+                    .build());
+        } catch (TransactionCanceledException ex) {
+            throw new StockConditionException(DynamoDbErrorMessage.STOCK_CONDITION_NOT_MET.formatDetail(), ex);
+        }
     }
 }
