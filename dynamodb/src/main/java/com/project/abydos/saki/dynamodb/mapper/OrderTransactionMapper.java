@@ -1,6 +1,7 @@
 package com.project.abydos.saki.dynamodb.mapper;
 
 import com.project.abydos.saki.dynamodb.param.OrderTransactionParam;
+import lombok.NonNull;
 import software.amazon.awssdk.services.dynamodb.model.*;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public class OrderTransactionMapper {
      * @param param トランザクションパラメータ
      * @return TransactWriteItemリスト
      */
-    public List<TransactWriteItem> toTransactWriteItems(OrderTransactionParam param) {
+    public List<TransactWriteItem> toTransactWriteItems(@NonNull OrderTransactionParam param) {
         List<OrderTransactionParam.DetailParam> details = param.getDetails();
         List<TransactWriteItem> items = new ArrayList<>(1 + details.size() * 2);
 
@@ -39,7 +40,7 @@ public class OrderTransactionMapper {
         return items;
     }
 
-    private TransactWriteItem buildOrderPut(OrderTransactionParam param) {
+    private TransactWriteItem buildOrderPut(@NonNull OrderTransactionParam param) {
         Set<String> detailIdNs = new LinkedHashSet<>();
         long firstId = param.getFirstDetailId();
         for (int i = 0; i < param.getDetails().size(); i++) {
@@ -77,7 +78,7 @@ public class OrderTransactionMapper {
                 .build();
     }
 
-    private TransactWriteItem buildStockUpdate(OrderTransactionParam.DetailParam detail) {
+    private TransactWriteItem buildStockUpdate(@NonNull OrderTransactionParam.DetailParam detail) {
         return TransactWriteItem.builder()
                 .update(Update.builder()
                         .tableName(PRODUCTS_TABLE)
