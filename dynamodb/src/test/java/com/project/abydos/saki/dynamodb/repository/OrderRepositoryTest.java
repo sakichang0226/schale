@@ -35,7 +35,7 @@ class OrderRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        when(enhancedClient.table(eq("orders"), any())).thenReturn((DynamoDbTable) table);
+        lenient().when(enhancedClient.table(eq("orders"), any())).thenReturn((DynamoDbTable) table);
         orderRepository = new OrderRepository(enhancedClient, dynamoDbClient);
     }
 
