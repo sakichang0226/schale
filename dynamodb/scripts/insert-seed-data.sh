@@ -71,6 +71,126 @@ aws dynamodb put-item \
     "created_at": {"N": "1496918200000"}
   }'
 
+aws dynamodb put-item \
+  --endpoint-url $ENDPOINT \
+  --region $REGION \
+  --table-name products \
+  --item '{
+    "product_id": {"N": "3"},
+    "product_name": {"S": "UVカットキャップ"},
+    "description": {"S": "紫外線99%カット。軽量で通気性抜群のスポーツキャップ。"},
+    "image_url": {"S": "https://s3.ap-northeast-1.amazonaws.com/bucket/products/3.jpg"},
+    "shop_id": {"N": "10002"},
+    "category_id": {"N": "32"},
+    "price": {"N": "990"},
+    "tax_type": {"S": "I"},
+    "rating": {"N": "3.5"},
+    "review_count": {"N": "8"},
+    "stock": {"N": "200"},
+    "status": {"S": "O"},
+    "created_at": {"N": "1496918300000"}
+  }'
+
+aws dynamodb put-item \
+  --endpoint-url $ENDPOINT \
+  --region $REGION \
+  --table-name products \
+  --item '{
+    "product_id": {"N": "4"},
+    "product_name": {"S": "ステンレスタンブラー 500ml"},
+    "description": {"S": "真空断熱構造で保温保冷6時間。シンプルなデザインで持ち運びに便利。"},
+    "image_url": {"S": "https://s3.ap-northeast-1.amazonaws.com/bucket/products/4.jpg"},
+    "shop_id": {"N": "10003"},
+    "category_id": {"N": "45"},
+    "price": {"N": "1980"},
+    "tax_type": {"S": "I"},
+    "rating": {"N": "4.5"},
+    "review_count": {"N": "25"},
+    "stock": {"N": "80"},
+    "status": {"S": "O"},
+    "created_at": {"N": "1496918400000"}
+  }'
+
+aws dynamodb put-item \
+  --endpoint-url $ENDPOINT \
+  --region $REGION \
+  --table-name products \
+  --item '{
+    "product_id": {"N": "5"},
+    "product_name": {"S": "レザーミニウォレット"},
+    "description": {"S": "本革使用のコンパクト財布。カード6枚収納可能。"},
+    "image_url": {"S": "https://s3.ap-northeast-1.amazonaws.com/bucket/products/5.jpg"},
+    "shop_id": {"N": "10001"},
+    "category_id": {"N": "22"},
+    "price": {"N": "4980"},
+    "tax_type": {"S": "I"},
+    "rating": {"N": "4.0"},
+    "review_count": {"N": "15"},
+    "stock": {"N": "30"},
+    "status": {"S": "O"},
+    "created_at": {"N": "1700000400000"}
+  }'
+
+aws dynamodb put-item \
+  --endpoint-url $ENDPOINT \
+  --region $REGION \
+  --table-name products \
+  --item '{
+    "product_id": {"N": "6"},
+    "product_name": {"S": "アロマディフューザー"},
+    "description": {"S": "超音波式で静音設計。7色LEDライト付きでリラックス空間を演出。"},
+    "image_url": {"S": "https://s3.ap-northeast-1.amazonaws.com/bucket/products/6.jpg"},
+    "shop_id": {"N": "10003"},
+    "category_id": {"N": "45"},
+    "price": {"N": "3480"},
+    "tax_type": {"S": "I"},
+    "rating": {"N": "4.0"},
+    "review_count": {"N": "20"},
+    "stock": {"N": "45"},
+    "status": {"S": "O"},
+    "created_at": {"N": "1700000500000"}
+  }'
+
+aws dynamodb put-item \
+  --endpoint-url $ENDPOINT \
+  --region $REGION \
+  --table-name products \
+  --item '{
+    "product_id": {"N": "7"},
+    "product_name": {"S": "防水スマホポーチ"},
+    "description": {"S": "IPX8防水対応。タッチ操作可能で海やプールに最適。"},
+    "image_url": {"S": "https://s3.ap-northeast-1.amazonaws.com/bucket/products/7.jpg"},
+    "shop_id": {"N": "10002"},
+    "category_id": {"N": "15"},
+    "price": {"N": "1280"},
+    "tax_type": {"S": "I"},
+    "rating": {"N": "3.5"},
+    "review_count": {"N": "42"},
+    "stock": {"N": "150"},
+    "status": {"S": "O"},
+    "created_at": {"N": "1700000600000"}
+  }'
+
+aws dynamodb put-item \
+  --endpoint-url $ENDPOINT \
+  --region $REGION \
+  --table-name products \
+  --item '{
+    "product_id": {"N": "8"},
+    "product_name": {"S": "オーガニックハンドクリーム"},
+    "description": {"S": "天然由来成分95%配合。べたつかず保湿力抜群。"},
+    "image_url": {"S": "https://s3.ap-northeast-1.amazonaws.com/bucket/products/8.jpg"},
+    "shop_id": {"N": "10001"},
+    "category_id": {"N": "50"},
+    "price": {"N": "780"},
+    "tax_type": {"S": "N"},
+    "rating": {"N": "4.5"},
+    "review_count": {"N": "33"},
+    "stock": {"N": "300"},
+    "status": {"S": "O"},
+    "created_at": {"N": "1700000700000"}
+  }'
+
 echo "Inserting seed data into orders table..."
 aws dynamodb put-item \
   --endpoint-url $ENDPOINT \
