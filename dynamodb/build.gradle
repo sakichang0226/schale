@@ -1,0 +1,15 @@
+project(":dynamodb") {
+	dependencies {
+		implementation platform('software.amazon.awssdk:bom:2.25.60')
+		implementation 'software.amazon.awssdk:dynamodb-enhanced'
+		implementation 'software.amazon.awssdk:dynamodb'
+	}
+
+	bootJar {
+		enabled = false
+	}
+
+	jar {
+		enabled = true
+	}
+}
