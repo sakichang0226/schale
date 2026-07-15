@@ -14,7 +14,7 @@ public enum DynamoDbLogMessage {
     REQUEST("Request={}"),
 
     /** Dynamo DBテーブルのレスポンスログ */
-    RESPONSE("Request={}");
+    RESPONSE("Response={}");
 
     private final String message;
 
