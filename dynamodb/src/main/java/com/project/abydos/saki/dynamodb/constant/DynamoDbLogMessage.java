@@ -10,14 +10,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum DynamoDbLogMessage {
 
-    /**
-     * Dynamo DBテーブルへのリクエスト時のログ
-     */
+    /** Dynamo DBテーブルへのリクエスト時のログ */
     REQUEST("Request={}"),
 
-    /**
-     * Dynamo DBテーブルのレスポンスログ
-     */
+    /** Dynamo DBテーブルのレスポンスログ */
     RESPONSE("Request={}");
 
     private final String message;
