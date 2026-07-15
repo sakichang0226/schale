@@ -12,6 +12,9 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
 
 import java.net.URI;
 
+/**
+ * DynamoDB接続設定
+ */
 @Configuration
 public class DynamoDbConfig {
 
@@ -22,9 +25,15 @@ public class DynamoDbConfig {
     private String region;
 
     @Bean
+    public DynamoDbLoggingInterceptor DynamoDbLoggingInterceptor() {
+        return new DynamoDbLoggingInterceptor();
+    }
+
+    @Bean
     public DynamoDbClient dynamoDbClient() {
         DynamoDbClientBuilder builder = DynamoDbClient.builder()
-                .region(Region.of(region));
+                .region(Region.of(region))
+                .overrideConfiguration(c -> c.addExecutionInterceptor(DynamoDbLoggingInterceptor()));
 
         if (endpoint != null) {
             builder.endpointOverride(URI.create(endpoint))
